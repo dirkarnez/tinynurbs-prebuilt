@@ -49,13 +49,14 @@ jobs:
           ${{ github.workspace }}\mingw64\bin;^
           ${{ github.workspace }}\cmake-3.22.2-windows-x86_64\bin;
           gcc --version &&^
+          set CD_LINUX=%CD:\=/%
           cd tinynurbs && ^
           cmake.exe -G "MinGW Makefiles" ^
           -DCMAKE_BUILD_TYPE=Release ^
           -DBUILD_SHARED_LIBS=OFF ^
           -DBUILD_TESTS=OFF ^
           -DTINYNURBS_USE_OWN_GLM=OFF ^
-          -DGLM_ROOT_DIR="%CD:\=/%/../glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
+          -DGLM_ROOT_DIR="%CD_LINUX%/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
           -B./cmake-build &&^
           cd /cmake-build && cmake --build . && cmake --install . 
