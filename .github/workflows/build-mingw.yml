@@ -20,57 +20,57 @@ jobs:
         shell: cmd
         run: git clone https://github.com/dirkarnez/tinynurbs.git && cd tinynurbs && git checkout ${{ env.tagName }}
         
-      - name: curl glm prebuilt
-        shell: cmd
-        run: |
-          curl https://github.com/dirkarnez/glm-prebuilt/releases/download/cfc8f4bb442b9540969f2f3f351c4960d91bca17a/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip  -L --output glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip &&^
-          dir &&^
-          7z.exe x glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -o"glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0"
+#       - name: curl glm prebuilt
+#         shell: cmd
+#         run: |
+#           curl https://github.com/dirkarnez/glm-prebuilt/releases/download/cfc8f4bb442b9540969f2f3f351c4960d91bca17a/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip  -L --output glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip &&^
+#           dir &&^
+#           7z.exe x glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -o"glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0"
         
-      - name: curl x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
-        shell: cmd
-        run: |
-          curl https://github.com/2641797006/c/blob/master/GCC-zip/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z?raw=true -L --output x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z &&^
-          dir &&^
-          7z.exe x x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+#       - name: curl x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+#         shell: cmd
+#         run: |
+#           curl https://github.com/2641797006/c/blob/master/GCC-zip/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z?raw=true -L --output x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z &&^
+#           dir &&^
+#           7z.exe x x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
         
-      - name: curl cmake-3.24.0-windows-x86_64.zip
-        shell: cmd
-        run: |
-          curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip &&^
-          dir &&^
-          7z.exe x cmake-3.24.0-windows-x86_64.zip
+#       - name: curl cmake-3.24.0-windows-x86_64.zip
+#         shell: cmd
+#         run: |
+#           curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip &&^
+#           dir &&^
+#           7z.exe x cmake-3.24.0-windows-x86_64.zip
         
-      - name: set PATH, check mingw version, cmake generate, build and install
-        shell: cmd
-        run: |
-          set CD_LINUX=%CD:\=/%
-          set PATH=^
-          ${{ github.workspace }}\mingw64;^
-          ${{ github.workspace }}\mingw64\bin;^
-          ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;
-          gcc --version &&^
-          cd tinynurbs && ^
-          cmake.exe -G "MinGW Makefiles" ^
-          -DCMAKE_BUILD_TYPE=Release ^
-          -DBUILD_SHARED_LIBS=OFF ^
-          -DBUILD_TESTS=OFF ^
-          -DTINYNURBS_USE_OWN_GLM=OFF ^
-          -DGLM_ROOT_DIR="%CD_LINUX%/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
-          -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
-          -B./cmake-build &&^
-          cd /cmake-build && cmake --build . && cmake --install . 
+#       - name: set PATH, check mingw version, cmake generate, build and install
+#         shell: cmd
+#         run: |
+#           set CD_LINUX=%CD:\=/%
+#           set PATH=^
+#           ${{ github.workspace }}\mingw64;^
+#           ${{ github.workspace }}\mingw64\bin;^
+#           ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;
+#           gcc --version &&^
+#           cd tinynurbs && ^
+#           cmake.exe -G "MinGW Makefiles" ^
+#           -DCMAKE_BUILD_TYPE=Release ^
+#           -DBUILD_SHARED_LIBS=OFF ^
+#           -DBUILD_TESTS=OFF ^
+#           -DTINYNURBS_USE_OWN_GLM=OFF ^
+#           -DGLM_ROOT_DIR="%CD_LINUX%/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
+#           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
+#           -B./cmake-build &&^
+#           cd /cmake-build && cmake --build . && cmake --install . 
             
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          directory: "tinynurbs/cmake-build/${{ env.cmakeInstallationPath }}"
+          directory: "tinynurbs"
           filename: "${{ env.mingwTargetZip }}"
           
       - name: Release prebuilt
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "tinynurbs/cmake-build/${{ env.cmakeInstallationPath }}/${{ env.mingwTargetZip }}"
+          artifacts: "tinynurbs/${{ env.mingwTargetZip }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
