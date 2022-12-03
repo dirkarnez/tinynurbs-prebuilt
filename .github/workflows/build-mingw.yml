@@ -58,7 +58,9 @@ jobs:
           -Dglm_DIR="%CD_LINUX%/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0/lib/cmake/glm" ^
           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
           -B./cmake-build &&^
-          cd /cmake-build && cmake --build . && cmake --install . 
+          cd cmake-build &&^
+          cmake --build . &&^
+          cmake --install . 
             
       - name: Archive Release
         uses: thedoctor0/zip-release@master
