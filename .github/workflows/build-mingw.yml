@@ -13,12 +13,12 @@ jobs:
     env:
       libraryName: tinynurbs
       cmakeInstallationPath: tinynurbs-installation
-      # tagName: v0.1
-      mingwTargetZip: tinynurbs-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
+      tagName: 28a209255f277e7e1e73c4431faca8e92f394fb3
+      mingwTargetZip: tinynurbs-${{ github.ref_name }}-mingw64-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
       - name: git clone tinynurbs
         shell: cmd
-        run: git clone --recursive https://github.com/dirkarnez/tinynurbs.git # && cd tinynurbs && git checkout ${{ env.tagName }}
+        run: git clone https://github.com/dirkarnez/tinynurbs.git && cd tinynurbs && git checkout ${{ env.tagName }}
         
       - name: curl glm prebuilt
         shell: cmd
