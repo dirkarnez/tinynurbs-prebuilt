@@ -55,7 +55,7 @@ jobs:
           -DBUILD_SHARED_LIBS=OFF ^
           -DBUILD_TESTS=OFF ^
           -DTINYNURBS_USE_OWN_GLM=OFF ^
-          -DGLM_ROOT_DIR="%CD:\=/%/glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
+          -DGLM_ROOT_DIR="%CD:\=/%/../glm-cfc8f4bb442b9540969f2f3f351c4960d91bca17a-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
           -B./cmake-build &&^
           cd /cmake-build && cmake --build . && cmake --install . 
@@ -64,12 +64,12 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          directory: "tinynurbs"
+          directory: "tinynurbs/cmake-build/${{ env.cmakeInstallationPath }}"
           filename: "${{ env.mingwTargetZip }}"
-          
+
       - name: Release prebuilt
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "tinynurbs/${{ env.mingwTargetZip }}"
+          artifacts: "tinynurbs/cmake-build/${{ env.cmakeInstallationPath }}/${{ env.mingwTargetZip }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
